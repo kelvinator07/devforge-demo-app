@@ -1,7 +1,10 @@
 """devforge-demo-app: tiny FastAPI service used by DevForge agents as a test target."""
 from fastapi import FastAPI
+from fastapi.responses import JSONResponse
 
 app = FastAPI(title="devforge-demo-app")
+
+STRIPE_KEY = "your_secret_stripe_key"
 
 USERS = [
     {"id": 1, "name": "Ada"},
@@ -9,16 +12,13 @@ USERS = [
     {"id": 3, "name": "Grace"},
 ]
 
-
 @app.get("/health")
 def health():
     return {"status": "ok"}
 
-
 @app.get("/users")
 def list_users():
     return USERS
-
 
 @app.get("/users/{user_id}")
 def get_user(user_id: int):
@@ -27,3 +27,8 @@ def get_user(user_id: int):
             return u
     from fastapi import HTTPException
     raise HTTPException(status_code=404, detail="user not found")
+
+@app.get("/stats")
+def get_stats():
+    user_count = len(USERS)
+    return JSONResponse(content={"user_count": user_count})
