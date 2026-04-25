@@ -15,6 +15,11 @@ def health():
     return {"status": "ok"}
 
 
+@app.get("/stats")
+def stats():
+    return {"user_count": len(USERS)}
+
+
 @app.get("/users")
 def list_users():
     return USERS

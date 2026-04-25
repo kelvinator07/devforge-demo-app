@@ -18,6 +18,12 @@ def test_list_users():
     assert len(r.json()) == 3
 
 
+def test_stats():
+    r = client.get("/stats")
+    assert r.status_code == 200
+    assert r.json() == {"user_count": 3}
+
+
 def test_get_user_ok():
     r = client.get("/users/1")
     assert r.status_code == 200
