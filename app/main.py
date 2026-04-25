@@ -20,6 +20,11 @@ def list_users():
     return USERS
 
 
+@app.get("/stats")
+def stats():
+    return {"user_count": len(USERS)}
+
+
 @app.get("/users/{user_id}")
 def get_user(user_id: int):
     for u in USERS:
