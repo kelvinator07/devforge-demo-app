@@ -27,3 +27,9 @@ def test_get_user_ok():
 def test_get_user_404():
     r = client.get("/users/999")
     assert r.status_code == 404
+
+
+def test_get_stats():
+    r = client.get("/stats")
+    assert r.status_code == 200
+    assert r.json() == {"user_count": 3}
