@@ -1,7 +1,6 @@
 from fastapi.testclient import TestClient
 
-from app.main import app
-
+from app.main import USERS, app
 
 client = TestClient(app)
 
@@ -27,3 +26,9 @@ def test_get_user_ok():
 def test_get_user_404():
     r = client.get("/users/999")
     assert r.status_code == 404
+
+
+def test_get_stats():
+    r = client.get("/stats")
+    assert r.status_code == 200
+    assert r.json()["user_count"] == len(USERS)

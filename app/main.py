@@ -26,4 +26,10 @@ def get_user(user_id: int):
         if u["id"] == user_id:
             return u
     from fastapi import HTTPException
+
     raise HTTPException(status_code=404, detail="user not found")
+
+
+@app.get("/stats")
+def stats():
+    return {"user_count": len(USERS)}
